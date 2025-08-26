@@ -6,7 +6,7 @@ using Eds.IdentityService.Domain.AppUserDomain.Exceptions;
 using Eds.IdentityService.Domain.Localization;
 using Eds.IdentityService.EntityFrameworkCore.Context;
 using Eds.IdentityService.EntityFrameworkCore.Setup;
-using Hhs.Shared.Localization;
+using Eds.Shared.Localization;
 using HsnSoft.Base.Data;
 using HsnSoft.Base.Logging;
 using HsnSoft.Base.Text;

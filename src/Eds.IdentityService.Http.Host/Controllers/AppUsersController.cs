@@ -2,13 +2,13 @@ using Eds.IdentityService.Application.Contracts.AppUserDomain.Dtos;
 using Eds.IdentityService.Application.Contracts.AppUserDomain.Dtos.Filters;
 using Eds.IdentityService.Application.Contracts.AppUserDomain.Dtos.Submits;
 using Eds.IdentityService.Application.Contracts.AppUserDomain.Services;
-using Hhs.IdentityService.Controllers.Base;
-using Hhs.Shared.Contracts.Cache.ServicePermissions;
+using Eds.IdentityService.Controllers.Base;
+using Eds.Shared.Contracts.Cache.ServicePermissions;
 using HsnSoft.Base.Application.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hhs.IdentityService.Controllers;
+namespace Eds.IdentityService.Controllers;
 
 [Route("api/identity-service/v1/commercial/app-users")]
 public sealed class AppUsersController : BaseServiceController

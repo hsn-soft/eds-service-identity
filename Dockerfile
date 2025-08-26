@@ -9,17 +9,17 @@ COPY ["./nuget.config", "./"]
 COPY ["./common.props", "./"]
 COPY ["./common.version.props", "./"]
 
-COPY ["./src/Hhs.IdentityService.Domain/Hhs.IdentityService.Domain.csproj", "./src/Hhs.IdentityService.Domain/"]
-COPY ["./src/Hhs.IdentityService.EntityFrameworkCore/Hhs.IdentityService.EntityFrameworkCore.csproj", "./src/Hhs.IdentityService.EntityFrameworkCore/"]
+COPY ["./src/Eds.IdentityService.Domain/Eds.IdentityService.Domain.csproj", "./src/Eds.IdentityService.Domain/"]
+COPY ["./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj", "./src/Eds.IdentityService.EntityFrameworkCore/"]
 
-RUN dotnet restore "./src/Hhs.IdentityService.EntityFrameworkCore/Hhs.IdentityService.EntityFrameworkCore.csproj" --verbosity minimal
+RUN dotnet restore "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --verbosity minimal
 
-COPY ["./src/Hhs.IdentityService.Domain/.", "./src/Hhs.IdentityService.Domain/"]
-COPY ["./src/Hhs.IdentityService.EntityFrameworkCore/.", "./src/Hhs.IdentityService.EntityFrameworkCore/"]
+COPY ["./src/Eds.IdentityService.Domain/.", "./src/Eds.IdentityService.Domain/"]
+COPY ["./src/Eds.IdentityService.EntityFrameworkCore/.", "./src/Eds.IdentityService.EntityFrameworkCore/"]
 
-RUN dotnet build "./src/Hhs.IdentityService.EntityFrameworkCore/Hhs.IdentityService.EntityFrameworkCore.csproj" --no-restore --configuration Release --verbosity minimal
+RUN dotnet build "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --no-restore --configuration Release --verbosity minimal
 
-RUN dotnet test "./src/Hhs.IdentityService.EntityFrameworkCore/Hhs.IdentityService.EntityFrameworkCore.csproj" --no-restore --no-build --configuration Release --verbosity minimal
+RUN dotnet test "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --no-restore --no-build --configuration Release --verbosity minimal
 
 RUN --mount=type=secret,id=VERSION_NUMBER \
     export VERSION_NUMBER=$(cat /run/secrets/VERSION_NUMBER) && \
@@ -29,8 +29,8 @@ RUN --mount=type=secret,id=ACTION_NUMBER \
     export ACTION_NUMBER=$(cat /run/secrets/ACTION_NUMBER) && \
     echo ${ACTION_NUMBER} > ./action_number
 
-RUN dotnet pack "./src/Hhs.IdentityService.Domain/Hhs.IdentityService.Domain.csproj" --no-restore --no-build --configuration Release --output ./packages -p:PackageVersion=$(cat ./version_number).$(cat ./action_number)
-RUN dotnet pack "./src/Hhs.IdentityService.EntityFrameworkCore/Hhs.IdentityService.EntityFrameworkCore.csproj" --no-restore --no-build --configuration Release --output ./packages -p:PackageVersion=$(cat ./version_number).$(cat ./action_number)
+RUN dotnet pack "./src/Eds.IdentityService.Domain/Eds.IdentityService.Domain.csproj" --no-restore --no-build --configuration Release --output ./packages -p:PackageVersion=$(cat ./version_number).$(cat ./action_number)
+RUN dotnet pack "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --no-restore --no-build --configuration Release --output ./packages -p:PackageVersion=$(cat ./version_number).$(cat ./action_number)
 
 FROM base AS final
 WORKDIR /packages

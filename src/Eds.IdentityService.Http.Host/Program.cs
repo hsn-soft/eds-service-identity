@@ -2,7 +2,7 @@ using HsnSoft.Base.AspNetCore.Serilog;
 using Microsoft.AspNetCore;
 using Serilog;
 
-namespace Hhs.IdentityService;
+namespace Eds.IdentityService;
 
 public static class Program
 {
@@ -50,7 +50,7 @@ public static class Program
                 var env = context.HostingEnvironment;
                 if (!env.IsDevelopment()) return;
 
-                options.ListenAnyIP(7410);
+                options.ListenAnyIP(6610);
             })
             .ConfigureAppConfiguration(x => x.AddConfiguration(GetConfiguration()))
             .UseStartup<Startup>()

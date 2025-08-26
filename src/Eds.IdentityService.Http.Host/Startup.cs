@@ -1,21 +1,22 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Eds.IdentityService.Application;
-using Hhs.IdentityService.Domain.AppRoleDomain.Entities;
-using Hhs.IdentityService.Domain.AppUserDomain.Entities;
-using Hhs.IdentityService.Domain.Localization;
+using Eds.IdentityService.Domain.AppRoleDomain.Entities;
+using Eds.IdentityService.Domain.AppUserDomain.Entities;
+using Eds.IdentityService.Domain.Localization;
 using Eds.IdentityService.EntityFrameworkCore;
 using Eds.IdentityService.EntityFrameworkCore.Context;
-using Hhs.Shared.Contracts.Cache.ServicePermissions;
-using Hhs.Shared.Contracts.Events;
-using Hhs.Shared.Hosting;
-using Hhs.Shared.Hosting.Microservices;
-using Hhs.Shared.Hosting.Microservices.Middlewares;
-using Hhs.Shared.Hosting.Middlewares;
+using Eds.Shared.Contracts.Cache.ServicePermissions;
+using Eds.Shared.Contracts.Events;
+using Eds.Shared.Hosting;
+using Eds.Shared.Hosting.Microservices;
+using Eds.Shared.Hosting.Microservices.Middlewares;
+using Eds.Shared.Hosting.Middlewares;
 using HsnSoft.Base.AspNetCore.Localization;
+using HsnSoft.Base.Data;
 using Microsoft.AspNetCore.Identity;
 
-namespace Hhs.IdentityService;
+namespace Eds.IdentityService;
 
 public sealed class Startup
 {
@@ -30,8 +31,7 @@ public sealed class Startup
 
     public IServiceProvider ConfigureServices(IServiceCollection services)
     {
-        services.ConfigureMicroserviceHost(Configuration)
-            .AddAdvancedController(Configuration, typeof(Startup))
+        services.ConfigureMicroserviceHost(Configuration, typeof(Startup))
             .AddJwtServerAuthentication(Configuration, WebHostEnvironment, "audience-service-identity")
             .AddCustomAuthorization(IdentityServicePermissions.GetAll())
             .AddEventBus(Configuration, typeof(EventHandlersAssemblyMarker).Assembly)
@@ -39,7 +39,10 @@ public sealed class Startup
             .AddHostingHealthChecks(Configuration, "identity", checkRedis: true, checkBroker: true,
                 checkPostgresql: true, postgresqlConnectionName: EfCoreDbProperties.ConnectionStringName)
             .AddServiceApplicationConfiguration(Configuration)
-            .AddServiceDatabaseConfiguration(Configuration);
+            .AddServiceEfCoreDatabaseConfiguration(Configuration);
+
+        // override DefaultBasicDataSeeder
+        services.AddTransient<IBasicDataSeeder, EfCoreSeederService>();
 
         services.AddIdentity<AppUser, AppRole>(options =>
             {
@@ -105,7 +108,7 @@ public sealed class Startup
 
                 var buildNumber = Environment.GetEnvironmentVariable("BUILD_NUMBER");
                 var appVersion = !string.IsNullOrWhiteSpace(buildNumber) ? $"v1.0.{buildNumber}" : "v1.0.0";
-                endpoints.MapGet("/", () => $"HHS {Program.AppName} | {Program.AppId} | {WebHostEnvironment.EnvironmentName} | {appVersion}");
+                endpoints.MapGet("/", () => $"EDS {Program.AppName} | {Program.AppId} | {WebHostEnvironment.EnvironmentName} | {appVersion}");
             }
         });
         app.UseHostingHealthChecks();

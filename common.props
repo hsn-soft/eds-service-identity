@@ -1,10 +1,10 @@
 <Project>
     <PropertyGroup>
         <NoWarn>$(NoWarn);CS1591;CS0436</NoWarn>
-        <PackageProjectUrl>https://techsummus.com/</PackageProjectUrl>
+        <PackageProjectUrl>https://hsnsoft.com/</PackageProjectUrl>
         <PackageLicenseExpression>LGPL-3.0-only</PackageLicenseExpression>
         <RepositoryType>git</RepositoryType>
-        <RepositoryUrl>https://github.com/tech-summus/hhs-service-identity/</RepositoryUrl>
+        <RepositoryUrl>https://github.com/hsn-soft/eds-service-identity/</RepositoryUrl>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
         <!-- Include symbol files (*.pdb) in the built .nupkg -->
         <AllowedOutputExtensionsInPackageBuildOutputFolder>$(AllowedOutputExtensionsInPackageBuildOutputFolder);.pdb</AllowedOutputExtensionsInPackageBuildOutputFolder>
@@ -12,9 +12,9 @@
         <IsPackable>true</IsPackable>
         <OutputType>Library</OutputType>
         <NoDefaultLaunchSettingsFile>true</NoDefaultLaunchSettingsFile>
-        <Authors>TechSummus</Authors>
+        <Authors>HsnSoft</Authors>
         <Copyright>2025</Copyright>
-        <Product>TechSummus HHS Identity Service</Product>
+        <Product>HsnSoft EDS Identity Service</Product>
         <GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
         <AssetTargetFallback>$(AssetTargetFallback);portable-net45+win8+wp8+wpa81;</AssetTargetFallback>
         <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>

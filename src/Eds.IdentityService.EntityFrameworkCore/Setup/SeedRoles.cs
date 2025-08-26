@@ -1,4 +1,4 @@
-using Hhs.Shared.Helper.Consts;
+using Eds.Shared.Helper.Consts;
 
 namespace Eds.IdentityService.EntityFrameworkCore.Setup;
 
@@ -11,7 +11,7 @@ internal static class SeedRoles
 
         new SeedRole { RoleId = Guid.Parse("ABCDEF6D-370F-4FDC-9BCA-0330FF0DFABC"), Name = DefaultRoleNames.AppUser, IsPublic = false, IsDefault = true, TenantDomain = DefaultDomainNames.PublicApp, TenantId = default },
 
-        new SeedRole { RoleId = Guid.Parse("19466B3F-3E8B-4034-84CC-EFCC572C2FFE"), Name = $"{IdentityConsts.Admin}#techsummus", TenantDomain = "techsummus", TenantId = Guid.Parse("97422b81-74da-4532-a230-9e4fb0c0dede") },
+        new SeedRole { RoleId = Guid.Parse("19466B3F-3E8B-4034-84CC-EFCC572C2FFE"), Name = $"{IdentityConsts.Admin}#hsnsoft", TenantDomain = "hsnsoft", TenantId = Guid.Parse("97422b81-74da-4532-a230-9e4fb0c0dede") },
         new SeedRole { RoleId = Guid.Parse("1CB1D2B5-928A-42F8-B005-78EE076B499C"), Name = $"{IdentityConsts.Admin}#dunya", TenantDomain = "dunya", TenantId = Guid.Parse("8c2420c0-3cef-43fc-a8bf-71e22afee1f5") },
         new SeedRole { RoleId = Guid.Parse("29466B3F-3E8B-4034-84CC-EFCC572C2FFE"), Name = $"{IdentityConsts.Admin}#kisadalga", TenantDomain = "kisadalga", TenantId = Guid.Parse("54a50c2d-3ad0-41f2-99a2-3df95f508395") },
         new SeedRole { RoleId = Guid.Parse("2CB1D2B5-928A-42F8-B005-78EE076B499C"), Name = $"{IdentityConsts.Admin}#tamindir", TenantDomain = "tamindir", TenantId = Guid.Parse("23389012-8c70-4d64-9d7f-7a0420b00c17") },

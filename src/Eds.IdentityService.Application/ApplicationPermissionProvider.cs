@@ -1,5 +1,5 @@
-using Hhs.Shared.Contracts.Cache;
-using Hhs.Shared.Contracts.Cache.ServicePermissions;
+using Eds.Shared.Contracts.Cache;
+using Eds.Shared.Contracts.Cache.ServicePermissions;
 
 namespace Eds.IdentityService.Application;
 

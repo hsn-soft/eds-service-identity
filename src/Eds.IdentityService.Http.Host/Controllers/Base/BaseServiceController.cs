@@ -1,5 +1,5 @@
-﻿using Hhs.IdentityService.Domain.Localization;
-using Hhs.Shared.Localization;
+﻿using Eds.IdentityService.Domain.Localization;
+using Eds.Shared.Localization;
 using HsnSoft.Base.AspNetCore.Mvc;
 using HsnSoft.Base.Validation.Localization;
 using JetBrains.Annotations;
@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Localization;
 
-namespace Hhs.IdentityService.Controllers.Base;
+namespace Eds.IdentityService.Controllers.Base;
 
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 [Produces("application/json")]

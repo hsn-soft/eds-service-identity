@@ -1,3 +1,3 @@
-# hhs-service-identity
+# eds-service-identity
 
 test

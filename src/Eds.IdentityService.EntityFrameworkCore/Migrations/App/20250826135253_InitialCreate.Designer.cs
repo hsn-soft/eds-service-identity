@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Eds.IdentityService.EntityFrameworkCore.Migrations.App
 {
     [DbContext(typeof(IdentityAppDbContext))]
-    [Migration("20241213171921_InitialCreate")]
+    [Migration("20250826135253_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -20,12 +20,12 @@ namespace Eds.IdentityService.EntityFrameworkCore.Migrations.App
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.10")
+                .HasAnnotation("ProductVersion", "9.0.7")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppRoleDomain.Entities.AppRole", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppRoleDomain.Entities.AppRole", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -74,7 +74,7 @@ namespace Eds.IdentityService.EntityFrameworkCore.Migrations.App
                     b.ToTable("AppRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppRoleDomain.Entities.AppRoleClaim", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppRoleDomain.Entities.AppRoleClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -98,7 +98,7 @@ namespace Eds.IdentityService.EntityFrameworkCore.Migrations.App
                     b.ToTable("AppRoleClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUser", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -193,7 +193,7 @@ namespace Eds.IdentityService.EntityFrameworkCore.Migrations.App
                     b.ToTable("AppUsers", (string)null);
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUserClaim", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUserClaim", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -217,7 +217,7 @@ namespace Eds.IdentityService.EntityFrameworkCore.Migrations.App
                     b.ToTable("AppUserClaims", (string)null);
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUserLogin", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUserLogin", b =>
                 {
                     b.Property<string>("LoginProvider")
                         .HasMaxLength(128)
@@ -240,7 +240,7 @@ namespace Eds.IdentityService.EntityFrameworkCore.Migrations.App
                     b.ToTable("AppUserLogins", (string)null);
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUserRole", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUserRole", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -255,7 +255,7 @@ namespace Eds.IdentityService.EntityFrameworkCore.Migrations.App
                     b.ToTable("AppUserRoles", (string)null);
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUserToken", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUserToken", b =>
                 {
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
@@ -274,51 +274,51 @@ namespace Eds.IdentityService.EntityFrameworkCore.Migrations.App
                     b.ToTable("AppUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppRoleDomain.Entities.AppRoleClaim", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppRoleDomain.Entities.AppRoleClaim", b =>
                 {
-                    b.HasOne("Hhs.IdentityService.Domain.AppRoleDomain.Entities.AppRole", null)
+                    b.HasOne("Eds.IdentityService.Domain.AppRoleDomain.Entities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUserClaim", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUserClaim", b =>
                 {
-                    b.HasOne("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUser", null)
+                    b.HasOne("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUserLogin", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUserLogin", b =>
                 {
-                    b.HasOne("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUser", null)
+                    b.HasOne("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUserRole", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUserRole", b =>
                 {
-                    b.HasOne("Hhs.IdentityService.Domain.AppRoleDomain.Entities.AppRole", null)
+                    b.HasOne("Eds.IdentityService.Domain.AppRoleDomain.Entities.AppRole", null)
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUser", null)
+                    b.HasOne("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUserToken", b =>
+            modelBuilder.Entity("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUserToken", b =>
                 {
-                    b.HasOne("Hhs.IdentityService.Domain.AppUserDomain.Entities.AppUser", null)
+                    b.HasOne("Eds.IdentityService.Domain.AppUserDomain.Entities.AppUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

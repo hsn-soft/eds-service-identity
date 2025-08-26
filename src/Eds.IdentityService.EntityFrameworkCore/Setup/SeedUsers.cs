@@ -1,4 +1,4 @@
-using Hhs.Shared.Helper.Consts;
+using Eds.Shared.Helper.Consts;
 
 namespace Eds.IdentityService.EntityFrameworkCore.Setup;
 
@@ -19,7 +19,7 @@ internal static class SeedUsers
             FamilyName = IdentityConsts.Admin,
             Email = $"{IdentityConsts.Admin}@{IdentityConsts.SolutionName}.com#{DefaultDomainNames.System}",
             Roles = { DefaultRoleNames.SystemAdmin },
-            AvatarUrl = "/demo-techsummus-48x48.png"
+            AvatarUrl = "/demo-hsnsoft-48x48.png"
         },
         new SeedUser
         {
@@ -32,7 +32,7 @@ internal static class SeedUsers
             FamilyName = IdentityConsts.User,
             Email = $"{IdentityConsts.User}@{IdentityConsts.SolutionName}.com#{DefaultDomainNames.System}",
             Roles = { DefaultRoleNames.SystemUser },
-            AvatarUrl = "/demo-techsummus-48x48.png"
+            AvatarUrl = "/demo-hsnsoft-48x48.png"
         },
         new SeedUser
         {
@@ -46,20 +46,20 @@ internal static class SeedUsers
             Email = "hsnsh@outlook.com",
             Phone = "905335551122",
             Roles = { DefaultRoleNames.AppUser },
-            AvatarUrl = "/demo-techsummus-48x48.png"
+            AvatarUrl = "/demo-hsnsoft-48x48.png"
         },
         new SeedUser
         {
             UserId = Guid.Parse("21DD12BF-09B6-4DA9-AB62-D5F1DDD5F48A"),
             TenantId = Guid.Parse("97422b81-74da-4532-a230-9e4fb0c0dede"),
-            TenantDomain = "techsummus",
-            Username = $"{IdentityConsts.Admin}#techsummus",
+            TenantDomain = "hsnsoft",
+            Username = $"{IdentityConsts.Admin}#hsnsoft",
             PlainPassword = DefaultPlainPassword,
-            GivenName = "TechSummus",
+            GivenName = "HsnSoft",
             FamilyName = "Admin",
-            Email = $"{IdentityConsts.Admin}@techsummus.com#techsummus",
-            Roles = { $"{IdentityConsts.Admin}#techsummus" },
-            AvatarUrl = "/demo-techsummus-48x48.png"
+            Email = $"{IdentityConsts.Admin}@hsnsoft.com#hsnsoft",
+            Roles = { $"{IdentityConsts.Admin}#hsnsoft" },
+            AvatarUrl = "/demo-hsnsoft-48x48.png"
         },
         new SeedUser
         {
