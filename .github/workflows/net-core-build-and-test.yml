@@ -9,31 +9,53 @@ jobs:
   build:
     name: 'Build And Test JOB'
     runs-on: ubuntu-latest
+    permissions:
+      packages: read
+      contents: read
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
+          fetch-depth: 0
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 9.0.x
+          dotnet-version: '9.0.x'
 
-      - name: Cache Search
+      - name: Cache NuGet packages
         uses: actions/cache@v3
         with:
           path: ~/.nuget/packages
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget
+    
+      - name: Check Secret
+        run: |
+          if [ -z "${{ secrets.REPO_PACKAGE_SECRET }}" ]; then
+            echo "❌ Token boş!"
+            exit 1
+          else
+            echo "✅ Token mevcut (gösterilmiyor)"
+          fi
 
+      - name: Authenticate NuGet
+        run: |
+          dotnet nuget update source github \
+            --username hsnsh \
+            --password "$REPO_PACKAGE_TOKEN" \
+            --store-password-in-clear-text
+        env:
+          REPO_PACKAGE_TOKEN: ${{ secrets.REPO_PACKAGE_SECRET }}
+  
       - name: Restore Dependencies
         run: dotnet restore --force --verbosity minimal
+
 
       - name: Build Solution
         run: dotnet build --no-restore --no-incremental --verbosity minimal
 
       - name: Test Solution
-        run: dotnet test --no-restore --no-build --verbosity minimal
+        run: dotnet test --no-restore --no-build --verbosity normal
