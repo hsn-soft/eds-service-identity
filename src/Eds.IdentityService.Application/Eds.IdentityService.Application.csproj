@@ -7,9 +7,10 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <PackageId>Eds.IdentityService.Application</PackageId>
-        <Title>TechSummus Hhs Identity Service Application</Title>
-        <Description>TechSummus Hhs Identity Service Application</Description>
-        <PackageTags>TechSummus Hhs Identity Service Application</PackageTags>
+        <RootNamespace>Eds.IdentityService.Application</RootNamespace>
+        <Title>HsnSoft Eds Identity Service Application</Title>
+        <Description>HsnSoft Eds Identity Service Application</Description>
+        <PackageTags>HsnSoft Eds Identity Service Application</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,8 +23,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Hhs.Shared.Contracts" Version="$(HhsSharedVersion)" />
-        <!--<ProjectReference Include="..\..\..\..\shared\src\Hhs.Shared.Contracts\Hhs.Shared.Contracts.csproj" />-->
+        <PackageReference Include="Eds.Shared.Contracts" Version="$(EdsSharedVersion)" />
+        <!--<ProjectReference Include="..\..\..\..\shared\src\Eds.Shared.Contracts\Eds.Shared.Contracts.csproj" />-->
     </ItemGroup>
 
     <ItemGroup>

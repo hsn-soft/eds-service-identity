@@ -1,7 +1,8 @@
 using System.Globalization;
 using System.Text;
 using Eds.IdentityService.Domain.AppRoleDomain.Consts;
-using Hhs.Shared.Helper;
+using Eds.Shared.Helper;
+using Eds.Shared.Localization;
 using HsnSoft.Base;
 using HsnSoft.Base.MultiTenancy;
 using JetBrains.Annotations;

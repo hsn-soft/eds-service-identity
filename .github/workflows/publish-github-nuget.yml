@@ -30,7 +30,7 @@ jobs:
           context: .
           file: ./Dockerfile
           secrets: |
-            "NUGET_SOURCE=https://nuget.pkg.github.com/tech-summus/index.json"
+            "NUGET_SOURCE=https://nuget.pkg.github.com/hsn-soft/index.json"
             "NUGET_SECRET=${{ secrets.REPO_NUGET_USER_SECRET }}"
             "VERSION_NUMBER=${{ steps.get-version.outputs.version }}"
             "ACTION_NUMBER=${{ github.run_number }}"

@@ -7,9 +7,10 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <PackageId>Eds.IdentityService.Domain</PackageId>
-        <Title>TechSummus Hhs Identity Service Domain</Title>
-        <Description>TechSummus Hhs Identity Service Domain</Description>
-        <PackageTags>TechSummus Hhs Identity Service Domain</PackageTags>
+        <RootNamespace>Eds.IdentityService.Domain</RootNamespace>
+        <Title>HsnSoft Eds Identity Service Domain</Title>
+        <Description>HsnSoft Eds Identity Service Domain</Description>
+        <PackageTags>HsnSoft Eds Identity Service Domain</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
@@ -22,8 +23,8 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="Hhs.Shared.Helper" Version="$(HhsSharedVersion)" />
-        <!--<ProjectReference Include="..\..\..\..\shared\src\Hhs.Shared.Helper\Hhs.Shared.Helper.csproj" />-->
+        <PackageReference Include="Eds.Shared.Helper" Version="$(EdsSharedVersion)" />
+        <!--<ProjectReference Include="..\..\..\..\shared\src\Eds.Shared.Helper\Eds.Shared.Helper.csproj" />-->
     </ItemGroup>
 
     <ItemGroup>

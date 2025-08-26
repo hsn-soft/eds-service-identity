@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Eds.IdentityService.Domain.AppRoleDomain.Consts;
 using Eds.IdentityService.Domain.Localization;
-using Hhs.Shared.Localization;
+using Eds.Shared.Localization;
 using HsnSoft.Base;
 using HsnSoft.Base.Validation.Localization;
 using JetBrains.Annotations;

@@ -1,7 +1,7 @@
 using Eds.IdentityService.Application.Contracts.AppRoleDomain.Services;
 using Eds.IdentityService.Application.Contracts.AppUserDomain.Services;
 using Eds.IdentityService.Application.Services;
-using Hhs.Shared.Contracts.Cache;
+using Eds.Shared.Contracts.Cache;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

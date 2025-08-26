@@ -13,13 +13,10 @@ namespace Eds.IdentityService.EntityFrameworkCore;
 
 public static class EfCoreServiceCollectionExtensions
 {
-    public static IServiceCollection AddServiceDatabaseConfiguration(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddServiceEfCoreDatabaseConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddBaseAuditingServiceCollection();
         services.AddBaseDataServiceCollection();
-
-        // override DefaultBasicDataSeeder
-        services.AddTransient<IBasicDataSeeder, EfCoreSeederService>();
 
         AddAuthServerJwtDatabaseConfiguration(services, configuration);
 

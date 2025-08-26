@@ -3,7 +3,7 @@ using Eds.IdentityService.Application.Contracts.AppRoleDomain.Dtos;
 using Eds.IdentityService.Application.Contracts.AppUserDomain.Dtos;
 using Eds.IdentityService.Domain.AppRoleDomain.Entities;
 using Eds.IdentityService.Domain.AppUserDomain.Entities;
-using Hhs.Shared.Helper.Utils;
+using Eds.Shared.Helper.Utils;
 
 namespace Eds.IdentityService.Application;
 

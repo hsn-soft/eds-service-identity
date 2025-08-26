@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: ns-hhs-prod-apps
+  name: ns-eds-prod-apps
 
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hhs-service-identity-deployment
-  namespace: ns-hhs-prod-apps
+  name: eds-service-identity-deployment
+  namespace: ns-eds-prod-apps
 spec:
   replicas: 2
   revisionHistoryLimit: 2 # for roll-back, default to 10 if not specified
@@ -18,18 +18,18 @@ spec:
       maxUnavailable: 50%
   selector:
     matchLabels:
-      app: hhs-service-identity
+      app: eds-service-identity
   template:
     metadata:
       labels:
-        app: hhs-service-identity
+        app: eds-service-identity
     spec:
       terminationGracePeriodSeconds: 20 # successfully wait termination
       securityContext:
         fsGroupChangePolicy: Always
         fsGroup: 1001
       containers:
-        - name: hhs-service-identity-container
+        - name: eds-service-identity-container
           image: ${IMAGE_NAME}:${BUILD_ID}
           imagePullPolicy: Always
           resources:
@@ -118,20 +118,20 @@ spec:
 apiVersion: policy/v1
 kind: PodDisruptionBudget
 metadata:
-  name: hhs-service-identity-pdb
-  namespace: ns-hhs-prod-apps
+  name: eds-service-identity-pdb
+  namespace: ns-eds-prod-apps
 spec:
   minAvailable: 1
   selector:
     matchLabels:
-      app: hhs-service-identity
+      app: eds-service-identity
 ---
 # https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service
 kind: Service
 apiVersion: v1
 metadata:
-  name: hhs-service-identity-service
-  namespace: ns-hhs-prod-apps
+  name: eds-service-identity-service
+  namespace: ns-eds-prod-apps
 spec:
   type: ClusterIP
   ports:
@@ -139,4 +139,4 @@ spec:
       port: 80 # ServicePort
       targetPort: 8080 # ContainerPort
   selector:
-    app: hhs-service-identity
+    app: eds-service-identity

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Eds.IdentityService.Domain.Localization;
-using Hhs.Shared.Localization;
+using Eds.Shared.Localization;
 using HsnSoft.Base.Application.Services;
 using HsnSoft.Base.Domain.Entities.Events;
 using HsnSoft.Base.EventBus;

@@ -1,7 +1,7 @@
 services:
   
-  hhs-service-identity-stage:
-    container_name: hhs-service-identity-stage-container
+  eds-service-identity-stage:
+    container_name: eds-service-identity-stage-container
     image: ${IMAGE_NAME}
     restart: always
     stop_grace_period: 20s # wait graceful termination
@@ -26,7 +26,7 @@ services:
       timeout: 5s # application healthcheck response timeout.
       retries: 3 # If the application does not respond after 3 attempts, it will be marked as "unhealthy".
     ports:
-      - "7410:8080"
+      - "6610:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=stage
       - BUILD_NUMBER=${BUILD_ID}

@@ -1,9 +1,9 @@
 ﻿FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS base
 # Metadata labels
-LABEL org.opencontainers.image.title="TechSummus Hhs Identity Service" \
-      org.opencontainers.image.description="TechSummus Hhs Identity Service" \
-      org.opencontainers.image.authors="TechSummus <admin@techsummus.com>" \
-      org.opencontainers.image.source="https://github.com/tech-summus/hhs-service-identity"
+LABEL org.opencontainers.image.title="HsnSoft Eds Identity Service" \
+      org.opencontainers.image.description="HsnSoft Eds Identity Service" \
+      org.opencontainers.image.authors="HsnSoft <admin@hsnsoft.com>" \
+      org.opencontainers.image.source="https://github.com/hsn-soft/eds-service-identity"
 
 USER root
 
@@ -34,37 +34,37 @@ COPY ["./nuget.config", "./"]
 COPY ["./common.props", "./"]
 COPY ["./common.version.props", "./"]
 
-COPY ["./src/Hhs.IdentityService.Application/Hhs.IdentityService.Application.csproj", "./src/Hhs.IdentityService.Application/"]
-COPY ["./src/Hhs.IdentityService.Domain/Hhs.IdentityService.Domain.csproj", "./src/Hhs.IdentityService.Domain/"]
-COPY ["./src/Hhs.IdentityService.EntityFrameworkCore/Hhs.IdentityService.EntityFrameworkCore.csproj", "./src/Hhs.IdentityService.EntityFrameworkCore/"]
-COPY ["./src/Hhs.IdentityService.Http.Host/Hhs.IdentityService.Http.Host.csproj", "./src/Hhs.IdentityService.Http.Host/"]
+COPY ["./src/Eds.IdentityService.Application/Eds.IdentityService.Application.csproj", "./src/Eds.IdentityService.Application/"]
+COPY ["./src/Eds.IdentityService.Domain/Eds.IdentityService.Domain.csproj", "./src/Eds.IdentityService.Domain/"]
+COPY ["./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj", "./src/Eds.IdentityService.EntityFrameworkCore/"]
+COPY ["./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj", "./src/Eds.IdentityService.Http.Host/"]
 
 ENV NUGET_CERT_REVOCATION_MODE=offline
-RUN dotnet restore "./src/Hhs.IdentityService.Http.Host/Hhs.IdentityService.Http.Host.csproj" \
+RUN dotnet restore "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" \
     --configfile ./nuget.config \
     --verbosity minimal
 
 # Copy source code
-COPY --chown=1001:1001 ["./src/Hhs.IdentityService.Application/.", "./src/Hhs.IdentityService.Application/"]
-COPY --chown=1001:1001 ["./src/Hhs.IdentityService.Domain/.", "./src/Hhs.IdentityService.Domain/"]
-COPY --chown=1001:1001 ["./src/Hhs.IdentityService.EntityFrameworkCore/.", "./src/Hhs.IdentityService.EntityFrameworkCore/"]
-COPY --chown=1001:1001 ["./src/Hhs.IdentityService.Http.Host/.", "./src/Hhs.IdentityService.Http.Host/"]
+COPY --chown=1001:1001 ["./src/Eds.IdentityService.Application/.", "./src/Eds.IdentityService.Application/"]
+COPY --chown=1001:1001 ["./src/Eds.IdentityService.Domain/.", "./src/Eds.IdentityService.Domain/"]
+COPY --chown=1001:1001 ["./src/Eds.IdentityService.EntityFrameworkCore/.", "./src/Eds.IdentityService.EntityFrameworkCore/"]
+COPY --chown=1001:1001 ["./src/Eds.IdentityService.Http.Host/.", "./src/Eds.IdentityService.Http.Host/"]
 
 # Build
-RUN dotnet build "./src/Hhs.IdentityService.Http.Host/Hhs.IdentityService.Http.Host.csproj" \
+RUN dotnet build "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" \
     --no-restore \
     --configuration Release \
     --verbosity minimal
 
 # (Opsiyonel) Test
-RUN dotnet test "./src/Hhs.IdentityService.Http.Host/Hhs.IdentityService.Http.Host.csproj" \
+RUN dotnet test "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" \
     --no-restore \
     --no-build \
     --configuration Release \
     --verbosity minimal
 
 # Publish
-RUN dotnet publish "./src/Hhs.IdentityService.Http.Host/Hhs.IdentityService.Http.Host.csproj" \
+RUN dotnet publish "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" \
     --no-restore \
     --no-build \
     --configuration Release \
@@ -79,5 +79,5 @@ COPY --chown=1001:1001 --from=build-stage /build-source/publish .
 # Runtime User
 USER 1001
 
-ENTRYPOINT ["dotnet", "Hhs.IdentityService.Http.Host.dll"]
+ENTRYPOINT ["dotnet", "Eds.IdentityService.Http.Host.dll"]
 CMD []

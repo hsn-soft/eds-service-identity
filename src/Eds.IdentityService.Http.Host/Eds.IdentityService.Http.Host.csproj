@@ -6,18 +6,18 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-        <RootNamespace>Hhs.IdentityService</RootNamespace>
-        <Title>TechSummus Hhs Identity Service</Title>
-        <Product>TechSummus Hhs Identity Service</Product>
-        <Description>TechSummus Hhs Identity Service</Description>
-        <Authors>TechSummus</Authors>
+        <RootNamespace>Eds.IdentityService</RootNamespace>
+        <Title>HsnSoft Eds Identity Service</Title>
+        <Product>HsnSoft Eds Identity Service</Product>
+        <Description>HsnSoft Eds Identity Service</Description>
+        <Authors>HsnSoft</Authors>
         <Copyright>2024</Copyright>
         <NoWarn>$(NoWarn);CS1591;CS1998;</NoWarn>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Hhs.Shared.Hosting.Microservices" Version="$(HhsSharedVersion)" />
-        <!--<ProjectReference Include="..\..\..\..\shared\src\Hhs.Shared.Hosting.Microservices\Hhs.Shared.Hosting.Microservices.csproj" />-->
+        <PackageReference Include="Eds.Shared.Hosting.Microservices" Version="$(EdsSharedVersion)" />
+        <!--<ProjectReference Include="..\..\..\..\shared\src\Eds.Shared.Hosting.Microservices\Eds.Shared.Hosting.Microservices.csproj" />-->
     </ItemGroup>
 
     <ItemGroup>
@@ -26,7 +26,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="public_key.xml">
+        <None Update="..\..\public_key.xml">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
         </None>
     </ItemGroup>

@@ -7,9 +7,10 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <PackageId>Eds.IdentityService.EntityFrameworkCore</PackageId>
-        <Title>TechSummus Hhs Identity Service EntityFrameworkCore</Title>
-        <Description>TechSummus Hhs Identity Service EntityFrameworkCore</Description>
-        <PackageTags>TechSummus Hhs Identity Service EntityFrameworkCore</PackageTags>
+        <RootNamespace>Eds.IdentityService.EntityFrameworkCore</RootNamespace>
+        <Title>HsnSoft Eds Identity Service EntityFrameworkCore</Title>
+        <Description>HsnSoft Eds Identity Service EntityFrameworkCore</Description>
+        <PackageTags>HsnSoft Eds Identity Service EntityFrameworkCore</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>

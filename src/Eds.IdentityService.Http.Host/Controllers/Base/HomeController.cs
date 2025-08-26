@@ -1,8 +1,8 @@
-using Hhs.Shared.Hosting;
+using Eds.Shared.Hosting;
 using HsnSoft.Base.Logging;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Hhs.IdentityService.Controllers.Base;
+namespace Eds.IdentityService.Controllers.Base;
 
 public sealed class HomeController : Controller
 {
