@@ -12,7 +12,12 @@ COPY ["./common.version.props", "./"]
 COPY ["./src/Eds.IdentityService.Domain/Eds.IdentityService.Domain.csproj", "./src/Eds.IdentityService.Domain/"]
 COPY ["./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj", "./src/Eds.IdentityService.EntityFrameworkCore/"]
 
-RUN dotnet restore "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --verbosity minimal
+RUN --mount=type=secret,id=NUGET_SOURCE \
+    --mount=type=secret,id=NUGET_SECRET \
+    dotnet restore "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" \
+      --source $(cat /run/secrets/NUGET_SOURCE) \
+      --api-key $(cat /run/secrets/NUGET_SECRET) \
+      --verbosity minimal
 
 COPY ["./src/Eds.IdentityService.Domain/.", "./src/Eds.IdentityService.Domain/"]
 COPY ["./src/Eds.IdentityService.EntityFrameworkCore/.", "./src/Eds.IdentityService.EntityFrameworkCore/"]
