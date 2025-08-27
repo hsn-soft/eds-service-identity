@@ -460,3 +460,5 @@ logs/
 
 # SonarQube
 .sonarqube/
+
+*.env

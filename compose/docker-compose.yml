@@ -4,6 +4,9 @@ services:
     build:
       context: ../
       dockerfile: src/Eds.IdentityService.Http.Host/Dockerfile
+      secrets:
+        - NUGET_USER
+        - NUGET_TOKEN
     container_name: eds-service-identity-local-container
     image: eds-service-identity-local:1.0.0
     restart: always
@@ -47,6 +50,12 @@ services:
       - AUTOHEAL_DEFAULT_STOP_TIMEOUT=10 # wait 10 seconds for the application to graceful shutdown.
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
+
+secrets:
+  NUGET_USER:
+    environment: NUGET_USER
+  NUGET_TOKEN:
+    environment: NUGET_TOKEN
 
 networks:
   infra-network:

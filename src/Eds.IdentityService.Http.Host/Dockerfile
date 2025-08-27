@@ -33,6 +33,7 @@ RUN groupadd -r -g 1001 servicegroup && \
 COPY ["./nuget.config", "./"]
 COPY ["./common.props", "./"]
 COPY ["./common.version.props", "./"]
+COPY ["./public_key.xml", "./"]
 
 COPY ["./src/Eds.IdentityService.Application/Eds.IdentityService.Application.csproj", "./src/Eds.IdentityService.Application/"]
 COPY ["./src/Eds.IdentityService.Domain/Eds.IdentityService.Domain.csproj", "./src/Eds.IdentityService.Domain/"]
@@ -40,9 +41,18 @@ COPY ["./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityF
 COPY ["./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj", "./src/Eds.IdentityService.Http.Host/"]
 
 ENV NUGET_CERT_REVOCATION_MODE=offline
-RUN dotnet restore "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" \
-    --configfile ./nuget.config \
-    --verbosity minimal
+
+# NuGet restore with secrets
+RUN --mount=type=secret,id=NUGET_USER \
+    --mount=type=secret,id=NUGET_TOKEN \
+    export NUGET_USER=$(cat /run/secrets/NUGET_USER) && \
+    export NUGET_TOKEN=$(cat /run/secrets/NUGET_TOKEN) && \
+    dotnet nuget update source github \
+        --username $NUGET_USER \
+        --password $NUGET_TOKEN \
+        --store-password-in-clear-text
+
+RUN dotnet restore "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" --verbosity minimal
 
 # Copy source code
 COPY --chown=1001:1001 ["./src/Eds.IdentityService.Application/.", "./src/Eds.IdentityService.Application/"]

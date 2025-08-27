@@ -31,7 +31,7 @@ jobs:
           key: ${{ runner.os }}-nuget-${{ hashFiles('**/packages.lock.json') }}
           restore-keys: |
             ${{ runner.os }}-nuget
-    
+
       - name: Check Secret
         run: |
           if [ -z "${{ secrets.REPO_PACKAGE_SECRET }}" ]; then
@@ -49,7 +49,7 @@ jobs:
             --store-password-in-clear-text
         env:
           REPO_PACKAGE_TOKEN: ${{ secrets.REPO_PACKAGE_SECRET }}
-  
+
       - name: Restore Dependencies
         run: dotnet restore --force --verbosity minimal
 
