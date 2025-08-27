@@ -26,12 +26,10 @@
     </ItemGroup>
 
     <ItemGroup>
-        <None Update="..\..\public_key.xml">
+        <Content Include="..\..\public_key.xml">
+            <Link>public_key.xml</Link>
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
-
-    <ItemGroup>
+        </Content>
         <Content Include="..\..\.dockerignore">
             <Link>.dockerignore</Link>
         </Content>
