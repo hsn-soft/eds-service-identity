@@ -63,7 +63,7 @@ public sealed class Startup
         {
             SwaggerConfigurationHelper.ConfigureWithBearer(services,
                 "Please enter a valid token. Token audiences contains audience-service-identity",
-                $"{Program.AppName} API");
+                $"{AppService.AppName} API");
         }
 
         var container = new ContainerBuilder();
@@ -79,7 +79,7 @@ public sealed class Startup
             app.UseSwagger();
             app.UseSwaggerUI(options =>
             {
-                options.SwaggerEndpoint("/swagger/v1/swagger.json", $"{Program.AppName} API");
+                options.SwaggerEndpoint("/swagger/v1/swagger.json", $"{AppService.AppName} API");
             });
         }
 
@@ -108,7 +108,7 @@ public sealed class Startup
 
                 var buildNumber = Environment.GetEnvironmentVariable("BUILD_NUMBER");
                 var appVersion = !string.IsNullOrWhiteSpace(buildNumber) ? $"v1.0.{buildNumber}" : "v1.0.0";
-                endpoints.MapGet("/", () => $"EDS {Program.AppName} | {Program.AppId} | {WebHostEnvironment.EnvironmentName} | {appVersion}");
+                endpoints.MapGet("/", () => $"EDS {AppService.AppName} | {AppService.AppId} | {WebHostEnvironment.EnvironmentName} | {appVersion}");
             }
         });
         app.UseHostingHealthChecks();
@@ -122,5 +122,5 @@ public sealed class Startup
         hostApplicationLifetime.ApplicationStopping.Register(OnShutdown);
     }
 
-    private static void OnShutdown() => Console.WriteLine("Stopping web host ({0})...", Program.AppName);
+    private static void OnShutdown() => Console.WriteLine("Stopping web host ({0})...", AppService.AppName);
 }

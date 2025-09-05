@@ -7,6 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Eds.IdentityService.Application;
 
+public static class AppService
+{
+    public static string AppId { get; set; }
+    public static string AppName { get; set; }
+}
+
 public static class ApplicationServiceCollectionExtensions
 {
     public static IServiceCollection AddServiceApplicationConfiguration(this IServiceCollection services, IConfiguration configuration)
