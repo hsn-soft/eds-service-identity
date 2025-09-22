@@ -52,7 +52,7 @@ RUN --mount=type=secret,id=NUGET_USER \
         --password $NUGET_TOKEN \
         --store-password-in-clear-text
 
-RUN dotnet restore "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" --verbosity minimal
+RUN dotnet restore "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" --force --verbosity minimal --configfile nuget.config
 
 # Copy source code
 COPY --chown=1001:1001 ["./src/Eds.IdentityService.Application/.", "./src/Eds.IdentityService.Application/"]
@@ -61,17 +61,10 @@ COPY --chown=1001:1001 ["./src/Eds.IdentityService.EntityFrameworkCore/.", "./sr
 COPY --chown=1001:1001 ["./src/Eds.IdentityService.Http.Host/.", "./src/Eds.IdentityService.Http.Host/"]
 
 # Build
-RUN dotnet build "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" \
-    --no-restore \
-    --configuration Release \
-    --verbosity minimal
+RUN dotnet build "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" --no-restore --no-incremental --verbosity minimal --configuration Release
 
 # (Opsiyonel) Test
-RUN dotnet test "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" \
-    --no-restore \
-    --no-build \
-    --configuration Release \
-    --verbosity minimal
+RUN dotnet test "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" --no-restore --no-build --verbosity minimal --configuration Release --filter "category!=integration"
 
 # Publish
 RUN dotnet publish "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" \
