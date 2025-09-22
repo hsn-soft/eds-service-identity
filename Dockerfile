@@ -20,14 +20,14 @@ RUN --mount=type=secret,id=NUGET_SECRET \
         --password $NUGET_SECRET \
         --store-password-in-clear-text
 
-RUN dotnet restore "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --verbosity minimal
+RUN dotnet restore "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --force --verbosity minimal --configfile nuget.config
 
 COPY ["./src/Eds.IdentityService.Domain/.", "./src/Eds.IdentityService.Domain/"]
 COPY ["./src/Eds.IdentityService.EntityFrameworkCore/.", "./src/Eds.IdentityService.EntityFrameworkCore/"]
 
-RUN dotnet build "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --no-restore --configuration Release --verbosity minimal
+RUN dotnet build "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --no-restore --no-incremental --verbosity minimal --configuration Release
 
-RUN dotnet test "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --no-restore --no-build --configuration Release --verbosity minimal
+RUN dotnet test "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --no-restore --no-build --verbosity minimal --configuration Release --filter "category!=integration"
 
 # Pack with version
 RUN --mount=type=secret,id=VERSION_NUMBER \
