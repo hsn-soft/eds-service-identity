@@ -1,4 +1,6 @@
+using Eds.IdentityService.Application;
 using HsnSoft.Base.AspNetCore.Serilog;
+using HsnSoft.Base.Tracing;
 using Microsoft.AspNetCore;
 using Serilog;
 
@@ -6,31 +8,31 @@ namespace Eds.IdentityService;
 
 public static class Program
 {
-    private static readonly string Namespace = typeof(Startup).Namespace;
-    public static readonly string AppName = Namespace?[(Namespace.IndexOf('.') + 1)..];
-    public static readonly string AppId = Guid.NewGuid().ToString("N");
-
     public static async Task<int> Main(string[] args)
     {
+        string workspace = typeof(Startup).Namespace;
+        ApplicationIdentifier.AppId = Guid.NewGuid().ToString("N");
+        ApplicationIdentifier.AppName = workspace?[(workspace.IndexOf('.') + 1)..];
+
         Log.Logger = SerilogConfigurationHelper.ConfigureConsoleLogger(GetConfiguration());
 
         try
         {
-            Log.Information("Configuring web host ({ApplicationContext})...", AppName);
+            Log.Information("Configuring web host ({ApplicationContext})...", ApplicationIdentifier.AppName);
             var host = CreateHostBuilder(args);
 
             // using (var scope = host.Services.CreateScope())
             // {
             // }
 
-            Log.Information("Starting web host ({ApplicationContext})...", AppName);
+            Log.Information("Starting web host ({ApplicationContext})...", ApplicationIdentifier.AppName);
             await host.RunAsync();
 
             return 0;
         }
         catch (Exception ex)
         {
-            Log.Fatal(ex, "Program terminated unexpectedly ({ApplicationContext})!", AppName);
+            Log.Fatal(ex, "Program terminated unexpectedly ({ApplicationContext})!", ApplicationIdentifier.AppName);
             return 1;
         }
         finally

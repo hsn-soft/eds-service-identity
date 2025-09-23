@@ -12,12 +12,6 @@ namespace Eds.IdentityService.Domain.AppRoleDomain.Entities;
 
 public sealed class AppRole : IdentityRole<Guid>, ISoftDelete, IMultiTenant
 {
-    bool ISoftDelete.IsDeleted
-    {
-        get => IsDeleted;
-        set => IsDeleted = value;
-    }
-
     public bool IsDeleted { get; internal set; }
 
     public Guid TenantId { get; private set; }
