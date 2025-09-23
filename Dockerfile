@@ -20,7 +20,7 @@ RUN --mount=type=secret,id=NUGET_SECRET \
         --password $NUGET_SECRET \
         --store-password-in-clear-text
 
-RUN dotnet restore "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --force --verbosity minimal --configfile nuget.config
+RUN dotnet restore "./src/Eds.IdentityService.EntityFrameworkCore/Eds.IdentityService.EntityFrameworkCore.csproj" --force --verbosity minimal
 
 COPY ["./src/Eds.IdentityService.Domain/.", "./src/Eds.IdentityService.Domain/"]
 COPY ["./src/Eds.IdentityService.EntityFrameworkCore/.", "./src/Eds.IdentityService.EntityFrameworkCore/"]

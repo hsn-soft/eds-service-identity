@@ -52,7 +52,7 @@ RUN --mount=type=secret,id=NUGET_USER \
         --password $NUGET_TOKEN \
         --store-password-in-clear-text
 
-RUN dotnet restore "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" --force --verbosity minimal --configfile nuget.config
+RUN dotnet restore "./src/Eds.IdentityService.Http.Host/Eds.IdentityService.Http.Host.csproj" --force --verbosity minimal
 
 # Copy source code
 COPY --chown=1001:1001 ["./src/Eds.IdentityService.Application/.", "./src/Eds.IdentityService.Application/"]
