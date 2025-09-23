@@ -1,5 +1,6 @@
 using Eds.IdentityService.Application;
 using HsnSoft.Base.AspNetCore.Serilog;
+using HsnSoft.Base.Tracing;
 using Microsoft.AspNetCore;
 using Serilog;
 
@@ -10,28 +11,28 @@ public static class Program
     public static async Task<int> Main(string[] args)
     {
         string workspace = typeof(Startup).Namespace;
-        AppService.AppId = Guid.NewGuid().ToString("N");
-        AppService.AppName = workspace?[(workspace.IndexOf('.') + 1)..];
+        ApplicationIdentifier.AppId = Guid.NewGuid().ToString("N");
+        ApplicationIdentifier.AppName = workspace?[(workspace.IndexOf('.') + 1)..];
 
         Log.Logger = SerilogConfigurationHelper.ConfigureConsoleLogger(GetConfiguration());
 
         try
         {
-            Log.Information("Configuring web host ({ApplicationContext})...", AppService.AppName);
+            Log.Information("Configuring web host ({ApplicationContext})...", ApplicationIdentifier.AppName);
             var host = CreateHostBuilder(args);
 
             // using (var scope = host.Services.CreateScope())
             // {
             // }
 
-            Log.Information("Starting web host ({ApplicationContext})...", AppService.AppName);
+            Log.Information("Starting web host ({ApplicationContext})...", ApplicationIdentifier.AppName);
             await host.RunAsync();
 
             return 0;
         }
         catch (Exception ex)
         {
-            Log.Fatal(ex, "Program terminated unexpectedly ({ApplicationContext})!", AppService.AppName);
+            Log.Fatal(ex, "Program terminated unexpectedly ({ApplicationContext})!", ApplicationIdentifier.AppName);
             return 1;
         }
         finally
