@@ -51,7 +51,7 @@ jobs:
           REPO_PACKAGE_TOKEN: ${{ secrets.REPO_PACKAGE_SECRET }}
 
       - name: Restore Dependencies
-        run: dotnet restore --force --verbosity minimal --configfile nuget.config
+        run: dotnet restore --force --verbosity minimal
 
       - name: Build Solution
         run: dotnet build --no-restore --no-incremental --verbosity minimal --configuration Release
