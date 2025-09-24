@@ -11,12 +11,13 @@ using HsnSoft.Base.Timing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Eds.IdentityService.EntityFrameworkCore;
 
 public static class EfCoreServiceCollectionExtensions
 {
-    public static IServiceCollection AddServiceEfCoreDatabaseConfiguration(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddServiceEfCoreDatabaseConfiguration(this IServiceCollection services, IConfiguration configuration, bool showDetailLogs = false)
     {
         services.AddBaseTimingServiceCollection();
         services.Configure<BaseClockOptions>(o => o.Kind = DateTimeKind.Utc);
@@ -39,13 +40,15 @@ public static class EfCoreServiceCollectionExtensions
                     sqlOptions.CommandTimeout(30000);
                     sqlOptions.MaxBatchSize(100);
                 });
-                // options.EnableSensitiveDataLogging();
-                // options.UseLoggerFactory(LoggerFactory.Create(builder =>
-                // {
-                //     builder.AddConsole();
-                //     builder.SetMinimumLevel(LogLevel.Information);
-                // }));
                 options.EnableSensitiveDataLogging(false);
+
+                if (!showDetailLogs) return;
+                options.EnableSensitiveDataLogging();
+                options.UseLoggerFactory(LoggerFactory.Create(builder =>
+                {
+                    builder.AddConsole();
+                    builder.SetMinimumLevel(LogLevel.Information);
+                }));
             }
             , contextLifetime: ServiceLifetime.Scoped // Must be Scoped => Cannot consume any scoped service and CurrentUser object creation on constructor
             , optionsLifetime: ServiceLifetime.Singleton
