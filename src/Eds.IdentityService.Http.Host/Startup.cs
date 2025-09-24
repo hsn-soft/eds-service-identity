@@ -40,7 +40,7 @@ public sealed class Startup
             .AddHostingHealthChecks(Configuration, "identity", checkRedis: true, checkBroker: true,
                 checkPostgresql: true, postgresqlConnectionName: EfCoreDbProperties.ConnectionStringName)
             .AddServiceApplicationConfiguration(Configuration)
-            .AddServiceEfCoreDatabaseConfiguration(Configuration);
+            .AddServiceEfCoreDatabaseConfiguration(Configuration, !WebHostEnvironment.IsHostProduction());
 
         // override DefaultBasicDataSeeder
         services.AddTransient<IBasicDataSeeder, EfCoreSeederService>();
