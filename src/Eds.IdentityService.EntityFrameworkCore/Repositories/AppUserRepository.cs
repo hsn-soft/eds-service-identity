@@ -87,9 +87,10 @@ public class AppUserRepository : IAppUserRepository
         var query = ApplyFilter(queryUser, tenantId, null,
             username, email, emailConfirmed, phoneNumber, phoneConfirmed, name, surname);
 
+        // TODO: Convert new paging list
         return await query
             .OrderBy(string.IsNullOrWhiteSpace(sorting) ? AppUserConsts.GetDefaultSorting(false) : sorting)
-            .PageBy(skipCount, maxResultCount)
+            .PageBy(0, maxResultCount)
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
@@ -170,7 +171,7 @@ public class AppUserRepository : IAppUserRepository
         var roleList = (await _userManager.GetRolesAsync(currentUser)).ToList();
         if (roleList is not { Count: > 0 }) return roleList;
 
-        for (var i = 0; i < roleList.Count; i++)
+        for (int i = 0; i < roleList.Count; i++)
         {
             roleList[i] = StringOperations.SplitFirstValue(roleList[i], "#");
         }
@@ -227,9 +228,9 @@ public class AppUserRepository : IAppUserRepository
 
         userName = StringOperations.SplitFirstValue(userName, "#");
         email = StringOperations.SplitFirstValue(email, "#");
-        var checkedUserName = StringOperations.ReplaceInvalidChars(userName, false, "-").ToLower(new CultureInfo("en-US"));
-        var checkedEmail = StringOperations.ReplaceInvalidChars(email, true, "-").ToLower(new CultureInfo("en-US"));
-        var userTenantDomain = StringOperations.ReplaceInvalidChars(tenantDomain, false, "-").ToLower(new CultureInfo("en-US"));
+        string checkedUserName = StringOperations.ReplaceInvalidChars(userName, false, "-").ToLower(new CultureInfo("en-US"));
+        string checkedEmail = StringOperations.ReplaceInvalidChars(email, true, "-").ToLower(new CultureInfo("en-US"));
+        string userTenantDomain = StringOperations.ReplaceInvalidChars(tenantDomain, false, "-").ToLower(new CultureInfo("en-US"));
 
         checkedUserName = $"{checkedUserName}#{userTenantDomain}";
         checkedEmail = $"{checkedEmail}#{userTenantDomain}";
@@ -255,10 +256,10 @@ public class AppUserRepository : IAppUserRepository
         if (roles is { Count: > 0 })
         {
             var checkedRoleList = new List<string>();
-            foreach (var role in roles)
+            foreach (string role in roles)
             {
-                var split = StringOperations.SplitFirstValue(role, "#");
-                var checkedRoleName = StringOperations.ReplaceInvalidChars(split, false, "-").ToLower(new CultureInfo("en-US"));
+                string split = StringOperations.SplitFirstValue(role, "#");
+                string checkedRoleName = StringOperations.ReplaceInvalidChars(split, false, "-").ToLower(new CultureInfo("en-US"));
                 checkedRoleList.Add($"{checkedRoleName}#{userTenantDomain}");
             }
 
@@ -300,9 +301,9 @@ public class AppUserRepository : IAppUserRepository
         userName = StringOperations.SplitFirstValue(userName, "#");
         email = StringOperations.SplitFirstValue(email, "#");
 
-        var checkedUserName = StringOperations.ReplaceInvalidChars(userName, false, "-").ToLower(new CultureInfo("en-US"));
-        var checkedEmail = StringOperations.ReplaceInvalidChars(email, true, "-").ToLower(new CultureInfo("en-US"));
-        var userTenantDomain = StringOperations.ReplaceInvalidChars(oldAppUser.TenantDomain, false, "-").ToLower(new CultureInfo("en-US"));
+        string checkedUserName = StringOperations.ReplaceInvalidChars(userName, false, "-").ToLower(new CultureInfo("en-US"));
+        string checkedEmail = StringOperations.ReplaceInvalidChars(email, true, "-").ToLower(new CultureInfo("en-US"));
+        string userTenantDomain = StringOperations.ReplaceInvalidChars(oldAppUser.TenantDomain, false, "-").ToLower(new CultureInfo("en-US"));
 
         checkedUserName = $"{checkedUserName}#{userTenantDomain}";
         checkedEmail = $"{checkedEmail}#{userTenantDomain}";
@@ -321,10 +322,10 @@ public class AppUserRepository : IAppUserRepository
         if (roles is { Count: > 0 })
         {
             var checkedRoleList = new List<string>();
-            foreach (var role in roles)
+            foreach (string role in roles)
             {
-                var split = StringOperations.SplitFirstValue(role, "#");
-                var checkedRoleName = StringOperations.ReplaceInvalidChars(split, false, "-").ToLower(new CultureInfo("en-US"));
+                string split = StringOperations.SplitFirstValue(role, "#");
+                string checkedRoleName = StringOperations.ReplaceInvalidChars(split, false, "-").ToLower(new CultureInfo("en-US"));
                 checkedRoleList.Add($"{checkedRoleName}#{userTenantDomain}");
             }
 
@@ -360,14 +361,14 @@ public class AppUserRepository : IAppUserRepository
             throw new AppUserNotFoundException(L, id.ToString());
         }
 
-        var guidGenerated = Guid.NewGuid().ToString("N").ToUpper();
-        var uniqueUserName = guidGenerated + "_" + appUser.UserName;
+        string guidGenerated = Guid.NewGuid().ToString("N").ToUpper();
+        string uniqueUserName = guidGenerated + "_" + appUser.UserName;
         if (uniqueUserName.Length > AppUserConsts.UserNameMaxLength)
         {
             uniqueUserName = uniqueUserName[..AppUserConsts.UserNameMaxLength];
         }
 
-        var uniqueEmail = guidGenerated + "_" + appUser.Email;
+        string uniqueEmail = guidGenerated + "_" + appUser.Email;
         if (uniqueEmail.Length > AppUserConsts.EmailMaxLength)
         {
             uniqueEmail = uniqueEmail[..AppUserConsts.EmailMaxLength];
@@ -437,7 +438,7 @@ public class AppUserRepository : IAppUserRepository
 
     private async Task UserRolesControlAsync(ICollection<string> roles)
     {
-        foreach (var roleName in roles)
+        foreach (string roleName in roles)
         {
             var result = await _context.Roles
                 .WhereIf(IsSoftDeleteFilterEnabled, e => e.IsDeleted == false)
