@@ -74,9 +74,10 @@ public class AppRoleRepository : IAppRoleRepository
         var query = ApplyFilter(_context.Roles.AsQueryable(), tenantId, null,
             name, isDefault, isStatic, isPublic);
 
+        // TODO: Convert new paging list
         return await query
             .OrderBy(string.IsNullOrWhiteSpace(sorting) ? AppRoleConsts.GetDefaultSorting(false) : sorting)
-            .PageBy(skipCount, maxResultCount)
+            .PageBy(0, maxResultCount)
             .ToListAsync(cancellationToken: cancellationToken);
     }
 
@@ -155,9 +156,9 @@ public class AppRoleRepository : IAppRoleRepository
         if (id == Guid.Empty) id = Guid.NewGuid();
 
         name = StringOperations.SplitFirstValue(name, "#");
-        var checkedRoleName = StringOperations.ReplaceInvalidChars(name, false, "-").ToLower(new CultureInfo("en-US"));
-        var roleDisplayName = checkedRoleName;
-        var roleTenantDomain = StringOperations.ReplaceInvalidChars(tenantDomain, false, "-").ToLower(new CultureInfo("en-US"));
+        string checkedRoleName = StringOperations.ReplaceInvalidChars(name, false, "-").ToLower(new CultureInfo("en-US"));
+        string roleDisplayName = checkedRoleName;
+        string roleTenantDomain = StringOperations.ReplaceInvalidChars(tenantDomain, false, "-").ToLower(new CultureInfo("en-US"));
 
         checkedRoleName = $"{checkedRoleName}#{roleTenantDomain}";
 
@@ -198,9 +199,9 @@ public class AppRoleRepository : IAppRoleRepository
         }
 
         name = StringOperations.SplitFirstValue(name, "#");
-        var checkedRoleName = StringOperations.ReplaceInvalidChars(name, false, "-").ToLower(new CultureInfo("en-US"));
-        var roleDisplayName = checkedRoleName;
-        var roleTenantDomain = StringOperations.ReplaceInvalidChars(oldAppRole.TenantDomain, false, "-").ToLower(new CultureInfo("en-US"));
+        string checkedRoleName = StringOperations.ReplaceInvalidChars(name, false, "-").ToLower(new CultureInfo("en-US"));
+        string roleDisplayName = checkedRoleName;
+        string roleTenantDomain = StringOperations.ReplaceInvalidChars(oldAppRole.TenantDomain, false, "-").ToLower(new CultureInfo("en-US"));
 
         checkedRoleName = $"{checkedRoleName}#{roleTenantDomain}";
 
@@ -237,8 +238,8 @@ public class AppRoleRepository : IAppRoleRepository
             throw new AppRoleNotFoundException(L, id.ToString());
         }
 
-        var guidGenerated = Guid.NewGuid().ToString("N").ToUpper();
-        var uniqueRoleName = guidGenerated + "_" + appRole.Name;
+        string guidGenerated = Guid.NewGuid().ToString("N").ToUpper();
+        string uniqueRoleName = guidGenerated + "_" + appRole.Name;
         if (uniqueRoleName.Length > AppRoleConsts.NameMaxLength)
         {
             uniqueRoleName = uniqueRoleName[..AppRoleConsts.NameMaxLength];

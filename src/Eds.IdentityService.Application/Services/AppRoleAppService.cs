@@ -49,12 +49,12 @@ public sealed class AppRoleAppService : ApplicationServiceBase, IAppRoleAppServi
             throw new BaseHttpException((int)HttpStatusCode.BadRequest);
         }
 
-        var totalCount = await _appRoleRepository.GetCountWithFiltersAsync(pagedInput.TenantId,
+        long totalCount = await _appRoleRepository.GetCountWithFiltersAsync(pagedInput.TenantId,
             pagedInput.Name, pagedInput.IsDefault, pagedInput.IsStatic, pagedInput.IsPublic);
 
         var items = await _appRoleRepository.GetPagedListWithFiltersAsync(pagedInput.TenantId,
             pagedInput.Name, pagedInput.IsDefault, pagedInput.IsStatic, pagedInput.IsPublic,
-            pagedInput.Sorting, pagedInput.MaxResultCount, pagedInput.SkipCount);
+            pagedInput.SortingText, pagedInput.MaxResultCount, pagedInput.ResultPageNumber);
 
         if (items == null)
         {
@@ -73,7 +73,7 @@ public sealed class AppRoleAppService : ApplicationServiceBase, IAppRoleAppServi
 
         var items = await _appRoleRepository.GetFilterListAsync(filterInput.TenantId,
             filterInput.Name, filterInput.IsDefault, filterInput.IsStatic, filterInput.IsPublic,
-            filterInput.Sorting);
+            filterInput.SortingText);
 
         if (items == null)
         {
@@ -91,7 +91,7 @@ public sealed class AppRoleAppService : ApplicationServiceBase, IAppRoleAppServi
         }
 
         var items = await _appRoleRepository.GetSearchListAsync(searchInput.TenantId,
-            searchInput.SearchText, searchInput.Sorting, searchInput.MaxResultCount);
+            searchInput.SearchText, searchInput.SortingText, searchInput.MaxResultCount);
 
         if (items == null)
         {

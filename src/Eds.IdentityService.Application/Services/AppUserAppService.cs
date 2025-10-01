@@ -55,14 +55,14 @@ public sealed class AppUserAppService : ApplicationServiceBase, IAppUserAppServi
 
         var roleIds = pagedInput.Roles is { Count: > 0 } ? pagedInput.Roles.Select(x => x.RoleId).ToList() : null;
 
-        var totalCount = await _appUserRepository.GetCountWithFiltersAsync(pagedInput.TenantId,
+        long totalCount = await _appUserRepository.GetCountWithFiltersAsync(pagedInput.TenantId,
             pagedInput.UserName, pagedInput.Email, pagedInput.EmailConfirmed, pagedInput.PhoneNumber, pagedInput.PhoneNumberConfirmed,
             pagedInput.Name, pagedInput.Surname, roleIds);
 
         var items = await _appUserRepository.GetPagedListWithFiltersAsync(pagedInput.TenantId,
             pagedInput.UserName, pagedInput.Email, pagedInput.EmailConfirmed, pagedInput.PhoneNumber, pagedInput.PhoneNumberConfirmed,
             pagedInput.Name, pagedInput.Surname, roleIds,
-            pagedInput.Sorting, pagedInput.MaxResultCount, pagedInput.SkipCount);
+            pagedInput.SortingText, pagedInput.MaxResultCount, pagedInput.ResultPageNumber);
 
         if (items == null)
         {
@@ -102,7 +102,7 @@ public sealed class AppUserAppService : ApplicationServiceBase, IAppUserAppServi
         var items = await _appUserRepository.GetFilterListAsync(filterInput.TenantId,
             filterInput.UserName, filterInput.Email, filterInput.EmailConfirmed, filterInput.PhoneNumber, filterInput.PhoneNumberConfirmed,
             filterInput.Name, filterInput.Surname, null,
-            filterInput.Sorting);
+            filterInput.SortingText);
 
         if (items == null)
         {
@@ -137,7 +137,7 @@ public sealed class AppUserAppService : ApplicationServiceBase, IAppUserAppServi
         }
 
         var items = await _appUserRepository.GetSearchListAsync(searchInput.TenantId,
-            searchInput.SearchText, searchInput.Sorting, searchInput.MaxResultCount);
+            searchInput.SearchText, searchInput.SortingText, searchInput.MaxResultCount);
 
         if (items == null)
         {
